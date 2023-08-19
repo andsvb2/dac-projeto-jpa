@@ -1,4 +1,4 @@
-package br.edu.ifpb.dac.anderson.projetojpa.entity;
+package br.edu.ifpb.dac.anderson.projetojpa.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,9 +20,6 @@ public class Filme {
     @Column(name = "titulo")
     private String titulo;
 
-    @Column(name = "diretor")
-    private String diretor;
-
     @Column(name = "genero")
     private String genero;
 
@@ -32,14 +29,9 @@ public class Filme {
         this.titulo = titulo;
     }
 
-    public Filme(String titulo, String diretor) {
-        this.titulo = titulo;
-        this.diretor = diretor;
-    }
 
-    public Filme(String titulo, String diretor, String genero) {
+    public Filme(String titulo, String genero) {
         this.titulo = titulo;
-        this.diretor = diretor;
         this.genero = genero;
     }
 
@@ -63,7 +55,6 @@ public class Filme {
     public String toString() {
         return getClass().getSimpleName() + "(" +
                 "Título = " + titulo + ", " +
-                "Diretor(a) = " + diretor + ", " +
                 "Gênero = " + genero + ")";
     }
 }

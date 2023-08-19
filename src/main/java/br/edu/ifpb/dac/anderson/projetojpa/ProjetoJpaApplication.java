@@ -1,8 +1,8 @@
 package br.edu.ifpb.dac.anderson.projetojpa;
 
-import br.edu.ifpb.dac.anderson.projetojpa.controller.FilmeController;
-import br.edu.ifpb.dac.anderson.projetojpa.entity.Filme;
-import br.edu.ifpb.dac.anderson.projetojpa.repository.FilmeRepository;
+import br.edu.ifpb.dac.anderson.projetojpa.business.controller.FilmeController;
+import br.edu.ifpb.dac.anderson.projetojpa.model.entity.Filme;
+import br.edu.ifpb.dac.anderson.projetojpa.model.repository.FilmeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -40,7 +40,7 @@ public class ProjetoJpaApplication implements CommandLineRunner {
                 String diretor = scanner.nextLine();
                 System.out.print("Qual o gênero do filme? ");
                 String genero = scanner.nextLine();
-                filmeController.createFilme(titulo, diretor, genero);
+                filmeController.createFilme(titulo, genero);
                 System.out.println("Filme registrado!");
             }
             else if (opcao == 2) {

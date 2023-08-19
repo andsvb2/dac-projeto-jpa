@@ -1,8 +1,7 @@
-package br.edu.ifpb.dac.anderson.projetojpa.controller;
+package br.edu.ifpb.dac.anderson.projetojpa.business.controller;
 
-import br.edu.ifpb.dac.anderson.projetojpa.entity.Filme;
-import br.edu.ifpb.dac.anderson.projetojpa.repository.FilmeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.edu.ifpb.dac.anderson.projetojpa.model.entity.Filme;
+import br.edu.ifpb.dac.anderson.projetojpa.model.repository.FilmeRepository;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -16,8 +15,8 @@ public class FilmeController {
         this.filmeRepository = filmeRepository;
     }
 
-    public void createFilme(String titulo, String diretor, String genero) {
-        filmeRepository.save(new Filme(titulo, diretor, genero));
+    public void createFilme(String titulo, String genero) {
+        filmeRepository.save(new Filme(titulo, genero));
     }
 
     public List<Filme> getFilmes() {

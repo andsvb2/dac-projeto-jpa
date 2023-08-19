@@ -1,6 +1,6 @@
-package br.edu.ifpb.dac.anderson.projetojpa.repository;
+package br.edu.ifpb.dac.anderson.projetojpa.model.repository;
 
-import br.edu.ifpb.dac.anderson.projetojpa.entity.Filme;
+import br.edu.ifpb.dac.anderson.projetojpa.model.entity.Filme;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
