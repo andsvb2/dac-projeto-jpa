@@ -5,37 +5,28 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.time.Year;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "filme")
-public class Filme {
+@Table(name = "produtora")
+public class Produtora {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "titulo")
-    private String titulo;
+    @Column(name = "nome")
+    private String nome;
 
-    @Column(name = "genero")
-    private String genero;
+    @Column(name = "pais")
+    private String pais;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "diretor_id")
-    private Diretor diretor;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "produtora_id")
-    private Produtora produtora;
-
-    @Column(name = "ano")
-    private Year ano;
-
-    public Filme(){}
+    @OneToMany(mappedBy = "produtora", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Filme> filmes = new LinkedHashSet<>();
 
     @Override
     public final boolean equals(Object o) {
@@ -44,8 +35,8 @@ public class Filme {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Filme filme = (Filme) o;
-        return getId() != null && Objects.equals(getId(), filme.getId());
+        Produtora produtora = (Produtora) o;
+        return getId() != null && Objects.equals(getId(), produtora.getId());
     }
 
     @Override
@@ -56,10 +47,7 @@ public class Filme {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
-                "titulo = " + titulo + ", " +
-                "genero = " + genero + ", " +
-                "diretor = " + diretor + ", " +
-                "produtora = " + produtora + ", " +
-                "ano = " + ano + ")";
+                "nome = " + nome + ", " +
+                "pais = " + pais + ")";
     }
 }
