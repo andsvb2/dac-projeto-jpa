@@ -27,10 +27,6 @@ public class FilmeController {
         return (List<Filme>) filmeRepository.findFilmeByTitulo(titulo);
     }
 
-    public List<Filme> getFilmeByDiretor(String diretor) {
-        return (List<Filme>) filmeRepository.findFilmeByDiretor(diretor);
-    }
-
     public List<Filme> getFilmeByGenero(String genero) {
         return (List<Filme>) filmeRepository.findFilmeByGenero(genero);
     }
