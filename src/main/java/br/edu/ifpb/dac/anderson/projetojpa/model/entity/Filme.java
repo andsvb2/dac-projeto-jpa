@@ -34,6 +34,10 @@ public class Filme {
     @Column(name = "ano")
     private Year ano;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "produtora_id")
+    private Produtora produtora;
+
     public void setDiretor(Diretor diretor) {
         this.diretor = diretor;
     }
