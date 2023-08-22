@@ -46,7 +46,7 @@ public class Filme {
     public String toString() {
         return "Título = '" + titulo + '\'' +
                 ", Gênero = '" + genero + '\'' +
-                ", Diretor(a) = " + diretor.getNome() +
+                ", Diretor(a) = " + (diretor != null ? diretor.getNome() : "Nenhum diretor(a) associado(a)") +
                 ", Ano = " + ano;
     }
 
