@@ -1,46 +1,39 @@
-package br.edu.ifpb.dac.anderson.projetojpa.entity;
+package br.edu.ifpb.dac.anderson.projetojpa.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.time.LocalDate;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "filme")
-public class Filme {
+@Table(name = "diretor")
+public class Diretor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "titulo")
-    private String titulo;
+    @OneToMany(mappedBy = "diretor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Filme> filmes = new LinkedHashSet<>();
 
-    @Column(name = "diretor")
-    private String diretor;
+    @Column(name = "nome")
+    private String nome;
 
-    @Column(name = "genero")
-    private String genero;
+    @Column(name = "pais")
+    private String pais;
 
-    public Filme(){}
+    @Column(name = "data_nascimento")
+    private LocalDate dataNascimento;
 
-    public Filme(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public Filme(String titulo, String diretor) {
-        this.titulo = titulo;
-        this.diretor = diretor;
-    }
-
-    public Filme(String titulo, String diretor, String genero) {
-        this.titulo = titulo;
-        this.diretor = diretor;
-        this.genero = genero;
+    public void addFilme(Filme filme) {
+        filmes.add(filme);
     }
 
     @Override
@@ -50,8 +43,8 @@ public class Filme {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Filme filme = (Filme) o;
-        return getId() != null && Objects.equals(getId(), filme.getId());
+        Diretor diretor = (Diretor) o;
+        return getId() != null && Objects.equals(getId(), diretor.getId());
     }
 
     @Override
@@ -61,9 +54,10 @@ public class Filme {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "Título = " + titulo + ", " +
-                "Diretor(a) = " + diretor + ", " +
-                "Gênero = " + genero + ")";
+        return "Nome = '" + nome + '\'' +
+                ", País = '" + pais + '\'' +
+                ", Data de Nascimento = " + dataNascimento;
     }
+
+
 }
