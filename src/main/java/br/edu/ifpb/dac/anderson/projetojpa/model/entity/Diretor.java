@@ -30,7 +30,11 @@ public class Diretor {
     private String pais;
 
     @Column(name = "data_nascimento")
-    private LocalDate data_nascimento;
+    private LocalDate dataNascimento;
+
+    public void addFilme(Filme filme) {
+        filmes.add(filme);
+    }
 
     @Override
     public final boolean equals(Object o) {
@@ -50,9 +54,10 @@ public class Diretor {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "nome = " + nome + ", " +
-                "pais = " + pais + ", " +
-                "data_nascimento = " + data_nascimento.toString() + ")";
+        return "Nome = '" + nome + '\'' +
+                ", País = '" + pais + '\'' +
+                ", Data de Nascimento = " + dataNascimento;
     }
+
+
 }

@@ -1,9 +1,10 @@
 package br.edu.ifpb.dac.anderson.projetojpa.model.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.proxy.HibernateProxy;
 
 import java.time.Year;
 import java.util.Objects;
@@ -11,6 +12,8 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "filme")
 public class Filme {
     @Id
@@ -28,38 +31,39 @@ public class Filme {
     @JoinColumn(name = "diretor_id")
     private Diretor diretor;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "produtora_id")
-    private Produtora produtora;
-
     @Column(name = "ano")
     private Year ano;
 
-    public Filme(){}
-
-    @Override
-    public final boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
-        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
-        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
-        if (thisEffectiveClass != oEffectiveClass) return false;
-        Filme filme = (Filme) o;
-        return getId() != null && Objects.equals(getId(), filme.getId());
-    }
-
-    @Override
-    public final int hashCode() {
-        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    public void setDiretor(Diretor diretor) {
+        this.diretor = diretor;
     }
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "titulo = " + titulo + ", " +
-                "genero = " + genero + ", " +
-                "diretor = " + diretor + ", " +
-                "produtora = " + produtora + ", " +
-                "ano = " + ano + ")";
+        return "Título = '" + titulo + '\'' +
+                ", Gênero = '" + genero + '\'' +
+                ", Diretor(a) = " + diretor.getNome() +
+                ", Ano = " + ano;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Filme filme)) return false;
+
+        if (!titulo.equals(filme.titulo)) return false;
+        if (!genero.equals(filme.genero)) return false;
+        if (!Objects.equals(diretor, filme.diretor)) return false;
+        return ano.equals(filme.ano);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = titulo.hashCode();
+        result = 31 * result + genero.hashCode();
+        result = 31 * result + (diretor != null ? diretor.hashCode() : 0);
+        result = 31 * result + ano.hashCode();
+        return result;
+    }
+
 }
